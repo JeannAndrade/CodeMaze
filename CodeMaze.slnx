@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="MiddlewareExample/MiddlewareExample.csproj" />
   <Project Path="Webapi.Tests/Webapi.Tests.csproj" />
   <Project Path="Webapi/Webapi.csproj" />
 </Solution>
