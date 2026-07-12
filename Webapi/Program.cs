@@ -1,9 +1,14 @@
+using LumiaFoundation.Logger.LoggerService;
 using Microsoft.AspNetCore.HttpOverrides;
 using Webapi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+LoggerManager.LoadConfigurationFromFile(
+    Path.Combine(builder.Environment.ContentRootPath, "nlog.config"));
+
 // Add services to the container.
+builder.Services.ConfigureLoggerService();
 builder.Services.ConfigureCors();
 builder.Services.AddControllers();
 

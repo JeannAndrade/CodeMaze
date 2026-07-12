@@ -1,11 +1,13 @@
+using LumiaFoundation.Logger.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Webapi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+public class WeatherForecastController(ILoggerManager logger) : ControllerBase
 {
+    private readonly ILoggerManager _logger = logger;
     private static readonly string[] Summaries =
     [
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -14,6 +16,12 @@ public class WeatherForecastController : ControllerBase
     [HttpGet]
     public IEnumerable<WeatherForecast> Get()
     {
+
+        _logger.LogInfo("Here is info message from our values controller.");
+        _logger.LogDebug("Here is debug message from our values controller.");
+        _logger.LogWarn("Here is warn message from our values controller.");
+        _logger.LogError("Here is an error message from our values controller.");
+
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
