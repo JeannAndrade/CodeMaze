@@ -1,3 +1,4 @@
+using LumiaFoundation.Logger.Extensions;
 using LumiaFoundation.Logger.LoggerService;
 using Microsoft.AspNetCore.HttpOverrides;
 using Webapi.Extensions;

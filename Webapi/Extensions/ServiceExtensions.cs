@@ -1,6 +1,3 @@
-using LumiaFoundation.Logger.Contracts;
-using LumiaFoundation.Logger.LoggerService;
-
 namespace Webapi.Extensions
 {
     public static class ServiceExtensions
@@ -9,8 +6,5 @@ namespace Webapi.Extensions
         {
             options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
         });
-
-        public static void ConfigureLoggerService(this IServiceCollection services) =>
-            services.AddSingleton<ILoggerManager, LoggerManager>();
     }
 }
