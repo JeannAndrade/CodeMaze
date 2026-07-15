@@ -1,6 +1,7 @@
 <Solution>
   <Project Path="Entities/Entities.csproj" />
   <Project Path="MiddlewareExample/MiddlewareExample.csproj" />
+  <Project Path="Repository/Repository.csproj" />
   <Project Path="Webapi.Tests/Webapi.Tests.csproj" />
   <Project Path="Webapi/Webapi.csproj" />
 </Solution>
