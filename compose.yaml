@@ -1,0 +1,29 @@
+volumes:
+  codemaze-vol:
+networks:
+  codemaze-net:
+services:
+  web-fe:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:8080"
+    networks:
+      - codemaze-net
+    environment:
+      - DBHOST=mysqldb
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+  mysqldb:
+    image: mysql:lts
+    networks:
+      - codemaze-net
+    volumes:
+      - codemaze-vol:/var/lib/mysql
+    environment:
+      - MYSQL_USER=example-user
+      - MYSQL_PASSWORD=my_cool_secret
+      - MYSQL_DATABASE=products
+      - MYSQL_ROOT_PASSWORD=my-secret-pw

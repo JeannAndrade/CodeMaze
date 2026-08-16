@@ -1,7 +1,6 @@
 ﻿using Entities.Models;
 using LumiaFoundation.EFRepository.Repository;
 using Microsoft.EntityFrameworkCore;
-using Repository.Mappings;
 
 namespace Repository.Context
 {

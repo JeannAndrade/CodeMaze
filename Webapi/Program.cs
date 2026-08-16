@@ -5,6 +5,13 @@ using Webapi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+IConfiguration configuration = new ConfigurationBuilder()
+    .SetBasePath(builder.Environment.ContentRootPath)
+    .AddEnvironmentVariables()
+    .Build();
+
+builder.Services.ConfigureWebapiDatabase(configuration);
+
 LoggerManager.LoadConfigurationFromFile(
     Path.Combine(builder.Environment.ContentRootPath, "nlog.config"));
 
@@ -18,7 +25,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) app.UseDeveloperExceptionPage(); else app.UseHsts();
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.All });
 app.UseCors("CorsPolicy");
