@@ -6,6 +6,7 @@ namespace Repository.Mappings
 {
     public class EmployeeMapping : IEntityTypeConfiguration<Employee>
     {
+
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
             builder.ToTable("Employees");
@@ -21,6 +22,32 @@ namespace Repository.Mappings
                 .WithMany(c => c.Employees)
                 .HasForeignKey(e => e.CompanyId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            var companies = CompanyMapping.GetCompanies();
+
+            builder.HasData(
+                new Employee
+                {
+                    Name = "Sam Raiden",
+                    Age = 26,
+                    Position = "Software developer",
+                    CompanyId = companies.First(c => c.Name == "IT_Solutions Ltd").Id
+                },
+                new Employee
+                {
+                    Name = "Jana McLeaf",
+                    Age = 30,
+                    Position = "Software developer",
+                    CompanyId = companies.First(c => c.Name == "IT_Solutions Ltd").Id
+                },
+                new Employee
+                {
+                    Name = "Kane Miller",
+                    Age = 35,
+                    Position = "Administrator",
+                    CompanyId = companies.First(c => c.Name == "Admin_Solutions Ltd").Id
+                }
+            );
         }
     }
 }

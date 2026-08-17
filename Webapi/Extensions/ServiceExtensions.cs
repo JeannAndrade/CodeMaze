@@ -16,15 +16,16 @@ namespace Webapi.Extensions
         {
             var host = configuration["DBHOST"] ?? "localhost";
             var port = configuration["DBPORT"] ?? "3306";
-            var user = configuration["DBUSER"] ?? "example-user";
-            var password = configuration["DBPASSWORD"] ?? "my_cool_secret";
-            var database = configuration["DBDATABASE"] ?? "my_database";
+            var user = configuration["CODEMAZE_DB_USER"] ?? "example-user";
+            var password = configuration["CODEMAZE_DB_PASS"] ?? "my_cool_secret";
+            var database = configuration["CODEMAZE_DB_NAME"] ?? "my_database";
             var majorVersion = Utilitarios.ParaIntOuPadrao(configuration["DBMAJORVERSION"] ?? "", 9);
             var minorVersion = Utilitarios.ParaIntOuPadrao(configuration["DBMINORVERSION"] ?? "", 7);
-            var buildVersion = Utilitarios.ParaIntOuPadrao(configuration["DBBUILDVERSION"] ?? "", 0);
+            var buildVersion = Utilitarios.ParaIntOuPadrao(configuration["DBBUILDVERSION"] ?? "", 2);
 
-            services.ConfigureMySqlDbDatabase<WebapiDbContext>(
-                new DbConnectionHelper(host: host, port: port, user: user, password: password, database: database, majorVersion: majorVersion, minorVersion: minorVersion, buildVersion: buildVersion));
+            var dbConnectionHelper = new DbConnectionHelper(host: host, port: port, user: user, password: password, database: database, majorVersion: majorVersion, minorVersion: minorVersion, buildVersion: buildVersion);
+
+            services.ConfigureMySqlDbDatabase<WebapiDbContext>(dbConnectionHelper, "Webapi");
 
             return services;
         }
