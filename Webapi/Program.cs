@@ -2,6 +2,7 @@ using LumiaFoundation.Logger.Extensions;
 using LumiaFoundation.Logger.LoggerService;
 using Microsoft.AspNetCore.HttpOverrides;
 using Webapi.Extensions;
+using Repository.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ IConfiguration configuration = new ConfigurationBuilder()
     .Build();
 
 builder.Services.ConfigureWebapiDatabase(configuration);
+builder.Services.ConfigureRepositoryManager();
 
 LoggerManager.LoadConfigurationFromFile(
     Path.Combine(builder.Environment.ContentRootPath, "nlog.config"));

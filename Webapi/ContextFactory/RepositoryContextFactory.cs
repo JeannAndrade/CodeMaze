@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Repository.Context;
-using Webapi.Extensions;
+using Repository.Extensions;
 
 namespace Webapi.ContextFactory
 {

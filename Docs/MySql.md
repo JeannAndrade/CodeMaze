@@ -11,6 +11,7 @@ docker run --name codemaze-local \
   -e MYSQL_USER=$CODEMAZE_DB_USER \
   -e MYSQL_PASSWORD=$CODEMAZE_DB_PASS \
   -p 3306:3306 \
+  -v codemaze-db-data:/var/lib/mysql \
   -d mysql:lts
 ```
 
