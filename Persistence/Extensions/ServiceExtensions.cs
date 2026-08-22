@@ -13,7 +13,7 @@ namespace Persistence.Extensions
         public static void ConfigureRepositoryManager(this IServiceCollection services) =>
             services.AddScoped<IRepositoryManager, RepositoryManager>();
 
-        public static IServiceCollection ConfigureWebapiDatabase(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureDatabase(this IServiceCollection services, IConfiguration configuration)
         {
             var host = configuration["DBHOST"] ?? "localhost";
             var port = configuration["DBPORT"] ?? "3306";
@@ -26,7 +26,7 @@ namespace Persistence.Extensions
 
             var dbConnectionHelper = new DbConnectionHelper(host: host, port: port, user: user, password: password, database: database, majorVersion: majorVersion, minorVersion: minorVersion, buildVersion: buildVersion);
 
-            services.ConfigureMySqlDbDatabase<WebapiDbContext>(dbConnectionHelper, "Webapi");
+            services.ConfigureMySqlDbDatabase<WebapiDbContext>(dbConnectionHelper, "Persistence");
 
             return services;
         }

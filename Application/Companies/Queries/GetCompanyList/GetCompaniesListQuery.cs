@@ -1,0 +1,31 @@
+using LumiaFoundation.Logger.Contracts;
+using Persistence.Management;
+
+namespace Application.Companies.Queries.GetCompanyList
+{
+    public class GetCompaniesListQuery(IRepositoryManager repositoryManager, ILoggerManager logger) : IGetCompaniesListQuery
+    {
+        private readonly IRepositoryManager _repository = repositoryManager;
+        private readonly ILoggerManager _logger = logger;
+
+        public List<CompanyModel> Execute()
+        {
+            try
+            {
+                var companies = _repository.Company.GetAllCompanies(trackChanges: false);
+
+                return [.. companies.Select(c => new CompanyModel
+                {
+                    Name = c.Name,
+                    Address = c.Address,
+                    Country = c.Country
+                })];
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong in the {nameof(GetCompaniesListQuery)} service method {ex}");
+                throw;
+            }
+        }
+    }
+}

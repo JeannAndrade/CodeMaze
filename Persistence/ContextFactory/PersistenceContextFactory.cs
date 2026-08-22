@@ -17,7 +17,7 @@ namespace Persistence.ContextFactory
 
             var services = new ServiceCollection();
 
-            services.ConfigureWebapiDatabase(configuration);
+            services.ConfigureDatabase(configuration);
 
             return services.BuildServiceProvider().GetRequiredService<WebapiDbContext>();
         }

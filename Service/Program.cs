@@ -11,7 +11,7 @@ IConfiguration configuration = new ConfigurationBuilder()
     .AddEnvironmentVariables()
     .Build();
 
-builder.Services.ConfigureWebapiDatabase(configuration);
+builder.Services.ConfigureDatabase(configuration);
 builder.Services.ConfigureRepositoryManager();
 
 LoggerManager.LoadConfigurationFromFile(
