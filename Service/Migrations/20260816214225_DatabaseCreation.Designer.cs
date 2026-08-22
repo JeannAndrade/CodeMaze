@@ -8,11 +8,11 @@ using Persistence.Context;
 
 #nullable disable
 
-namespace Presentation.Migrations
+namespace Service.Migrations
 {
     [DbContext(typeof(WebapiDbContext))]
-    [Migration("20260817030604_InitialData")]
-    partial class InitialData
+    [Migration("20260816214225_DatabaseCreation")]
+    partial class DatabaseCreation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,22 +46,6 @@ namespace Presentation.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companies", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("ffaf1c5e-49ac-4c33-a92e-e4559a43d7bc"),
-                            Address = "583 Wall Dr. Gwynn Oak, MD 21207",
-                            Country = "USA",
-                            Name = "IT_Solutions Ltd"
-                        },
-                        new
-                        {
-                            Id = new Guid("4d66633e-4b78-49db-a92b-ee609845ae52"),
-                            Address = "312 Forest Avenue, BF 923",
-                            Country = "USA",
-                            Name = "Admin_Solutions Ltd"
-                        });
                 });
 
             modelBuilder.Entity("Domain.Models.Employee", b =>
@@ -93,32 +77,6 @@ namespace Presentation.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("Employees", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("b135c96f-a657-4b02-9594-a7dabccf1812"),
-                            Age = 26,
-                            CompanyId = new Guid("ffaf1c5e-49ac-4c33-a92e-e4559a43d7bc"),
-                            Name = "Sam Raiden",
-                            Position = "Software developer"
-                        },
-                        new
-                        {
-                            Id = new Guid("0ca9d57d-5ac5-4d32-a2b7-1daedc5eece1"),
-                            Age = 30,
-                            CompanyId = new Guid("ffaf1c5e-49ac-4c33-a92e-e4559a43d7bc"),
-                            Name = "Jana McLeaf",
-                            Position = "Software developer"
-                        },
-                        new
-                        {
-                            Id = new Guid("ffde63c9-7bbb-4ebe-8d47-4ff9c2782a0c"),
-                            Age = 35,
-                            CompanyId = new Guid("4d66633e-4b78-49db-a92b-ee609845ae52"),
-                            Name = "Kane Miller",
-                            Position = "Administrator"
-                        });
                 });
 
             modelBuilder.Entity("Domain.Models.Employee", b =>

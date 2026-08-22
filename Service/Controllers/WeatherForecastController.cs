@@ -1,7 +1,7 @@
 using LumiaFoundation.Logger.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Presentation.Controllers;
+namespace Service.Controllers;
 
 [ApiController]
 [Route("[controller]")]

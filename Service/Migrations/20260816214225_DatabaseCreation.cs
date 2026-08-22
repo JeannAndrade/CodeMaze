@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Presentation.Migrations
+namespace Service.Migrations
 {
     /// <inheritdoc />
     public partial class DatabaseCreation : Migration
