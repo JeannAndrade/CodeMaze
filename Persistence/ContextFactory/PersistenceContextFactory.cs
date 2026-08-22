@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using Repository.Context;
-using Repository.Extensions;
+using Persistence.Context;
+using Persistence.Extensions;
 
-namespace Webapi.ContextFactory
+namespace Persistence.ContextFactory
 {
-    public class RepositoryContextFactory : IDesignTimeDbContextFactory<WebapiDbContext>
+    public class PersistenceContextFactory : IDesignTimeDbContextFactory<WebapiDbContext>
     {
         public WebapiDbContext CreateDbContext(string[] args)
         {

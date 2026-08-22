@@ -3,10 +3,10 @@ using LumiaFoundation.EFRepository.Extensions;
 using LumiaFoundation.EFRepository.Utils;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Repository.Context;
-using Repository.Management;
+using Persistence.Context;
+using Persistence.Management;
 
-namespace Repository.Extensions
+namespace Persistence.Extensions
 {
     public static class ServiceExtensions
     {

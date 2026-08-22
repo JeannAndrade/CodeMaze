@@ -2,7 +2,7 @@ using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Repository.Mappings
+namespace Persistence.Mappings
 {
     public class EmployeeMapping : IEntityTypeConfiguration<Employee>
     {

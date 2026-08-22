@@ -1,8 +1,8 @@
 using Domain.Models;
 using LumiaFoundation.EFRepository.Repository;
-using Repository.Context;
+using Persistence.Context;
 
-namespace Repository.Employees
+namespace Persistence.Employees
 {
     public class EmployeeRepository(WebapiDbContext repositoryContext) : BaseRepository<Employee>(repositoryContext), IEmployeeRepository
     {

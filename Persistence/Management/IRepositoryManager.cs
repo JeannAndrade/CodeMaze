@@ -1,8 +1,8 @@
 using LumiaFoundation.EFRepository.Repository;
-using Repository.Companies;
-using Repository.Employees;
+using Persistence.Companies;
+using Persistence.Employees;
 
-namespace Repository.Management
+namespace Persistence.Management
 {
     public interface IRepositoryManager : IBaseRepositoryManager
     {

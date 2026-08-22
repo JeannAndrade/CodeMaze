@@ -2,7 +2,7 @@ using LumiaFoundation.Logger.Extensions;
 using LumiaFoundation.Logger.LoggerService;
 using Microsoft.AspNetCore.HttpOverrides;
 using Webapi.Extensions;
-using Repository.Extensions;
+using Persistence.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

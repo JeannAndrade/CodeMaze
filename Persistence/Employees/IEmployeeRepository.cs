@@ -1,4 +1,4 @@
-namespace Repository.Employees
+namespace Persistence.Employees
 {
     public interface IEmployeeRepository
     {

@@ -8,7 +8,7 @@ COPY CodeMaze.slnx .
 
 COPY Domain/Domain.csproj Domain/
 COPY MiddlewareExample/MiddlewareExample.csproj MiddlewareExample/
-COPY Repository/Repository.csproj Repository/
+COPY Persistence/Persistence.csproj Persistence/
 COPY Webapi/Webapi.csproj Webapi/
 COPY Webapi.Tests/Webapi.Tests.csproj Webapi.Tests/
 

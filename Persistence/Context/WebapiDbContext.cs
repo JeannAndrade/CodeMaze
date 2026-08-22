@@ -2,7 +2,7 @@
 using LumiaFoundation.EFRepository.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repository.Context
+namespace Persistence.Context
 {
   public class WebapiDbContext(DbContextOptions options) : RepositoryContext(options)
   {

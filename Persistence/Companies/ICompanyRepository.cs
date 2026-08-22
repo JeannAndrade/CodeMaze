@@ -1,4 +1,4 @@
-namespace Repository.Companies
+namespace Persistence.Companies
 {
     public interface ICompanyRepository
     {

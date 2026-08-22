@@ -1,9 +1,9 @@
 using LumiaFoundation.EFRepository.Repository;
-using Repository.Companies;
-using Repository.Context;
-using Repository.Employees;
+using Persistence.Companies;
+using Persistence.Context;
+using Persistence.Employees;
 
-namespace Repository.Management
+namespace Persistence.Management
 {
     public class RepositoryManager(WebapiDbContext repositoryContext) : BaseRepositoryManager(repositoryContext), IRepositoryManager
     {
