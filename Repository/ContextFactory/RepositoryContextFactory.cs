@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using Repository.Context;
 using Repository.Extensions;
 
