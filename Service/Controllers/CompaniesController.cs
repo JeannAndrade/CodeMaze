@@ -13,14 +13,7 @@ public class CompaniesController(
   [HttpGet]
   public IActionResult GetCompanies()
   {
-    try
-    {
-      var companies = _getCompaniesListQuery.Execute();
-      return Ok(companies);
-    }
-    catch
-    {
-      return StatusCode(500, "Internal server error");
-    }
+    var companies = _getCompaniesListQuery.Execute();
+    return Ok(companies);
   }
 }
