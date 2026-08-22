@@ -19,7 +19,7 @@ namespace Webapi.Migrations
                 .HasAnnotation("ProductVersion", "10.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Entities.Models.Company", b =>
+            modelBuilder.Entity("Domain.Models.Company", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,7 +61,7 @@ namespace Webapi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entities.Models.Employee", b =>
+            modelBuilder.Entity("Domain.Models.Employee", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -118,9 +118,9 @@ namespace Webapi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entities.Models.Employee", b =>
+            modelBuilder.Entity("Domain.Models.Employee", b =>
                 {
-                    b.HasOne("Entities.Models.Company", "Company")
+                    b.HasOne("Domain.Models.Company", "Company")
                         .WithMany("Employees")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -129,7 +129,7 @@ namespace Webapi.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("Entities.Models.Company", b =>
+            modelBuilder.Entity("Domain.Models.Company", b =>
                 {
                     b.Navigation("Employees");
                 });

@@ -6,7 +6,7 @@ WORKDIR /source
 COPY global.json .
 COPY CodeMaze.slnx .
 
-COPY Entities/Entities.csproj Entities/
+COPY Domain/Domain.csproj Domain/
 COPY MiddlewareExample/MiddlewareExample.csproj MiddlewareExample/
 COPY Repository/Repository.csproj Repository/
 COPY Webapi/Webapi.csproj Webapi/

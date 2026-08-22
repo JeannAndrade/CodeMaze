@@ -1,6 +1,6 @@
 using LumiaFoundation.EFRepository.Domain;
 
-namespace Entities.Models
+namespace Domain.Models
 {
     public class Employee : Entity
     {

@@ -1,4 +1,4 @@
-﻿using Entities.Models;
+﻿using Domain.Models;
 using LumiaFoundation.EFRepository.Repository;
 using Microsoft.EntityFrameworkCore;
 
