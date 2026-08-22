@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Webapi.Migrations
+namespace Presentation.Migrations
 {
     /// <inheritdoc />
     public partial class DatabaseCreation : Migration

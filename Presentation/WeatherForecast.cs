@@ -1,4 +1,4 @@
-namespace Webapi;
+namespace Presentation;
 
 public class WeatherForecast
 {

@@ -7,7 +7,7 @@ using Persistence.Context;
 
 #nullable disable
 
-namespace Webapi.Migrations
+namespace Presentation.Migrations
 {
     [DbContext(typeof(WebapiDbContext))]
     partial class WebapiDbContextModelSnapshot : ModelSnapshot

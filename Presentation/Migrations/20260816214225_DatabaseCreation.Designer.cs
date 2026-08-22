@@ -8,7 +8,7 @@ using Persistence.Context;
 
 #nullable disable
 
-namespace Webapi.Migrations
+namespace Presentation.Migrations
 {
     [DbContext(typeof(WebapiDbContext))]
     [Migration("20260816214225_DatabaseCreation")]

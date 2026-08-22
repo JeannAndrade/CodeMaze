@@ -9,14 +9,14 @@ COPY CodeMaze.slnx .
 COPY Domain/Domain.csproj Domain/
 COPY MiddlewareExample/MiddlewareExample.csproj MiddlewareExample/
 COPY Persistence/Persistence.csproj Persistence/
-COPY Webapi/Webapi.csproj Webapi/
+COPY Presentation/Presentation.csproj Presentation/
 COPY Webapi.Tests/Webapi.Tests.csproj Webapi.Tests/
 
 RUN dotnet restore CodeMaze.slnx
 
 # copy everything else and build app
 COPY . .
-RUN dotnet publish Webapi/Webapi.csproj -c Release -o /app --no-restore
+RUN dotnet publish Presentation/Presentation.csproj -c Release -o /app --no-restore
 
 # final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:10.0
@@ -24,4 +24,4 @@ WORKDIR /app
 ENV ASPNETCORE_URLS=http://+:8080
 COPY --from=build /app ./
 EXPOSE 8080
-ENTRYPOINT ["dotnet", "Webapi.dll"]
+ENTRYPOINT ["dotnet", "Presentation.dll"]

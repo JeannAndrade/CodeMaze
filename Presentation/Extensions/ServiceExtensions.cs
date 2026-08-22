@@ -1,5 +1,5 @@
 
-namespace Webapi.Extensions
+namespace Presentation.Extensions
 {
     public static class ServiceExtensions
     {
