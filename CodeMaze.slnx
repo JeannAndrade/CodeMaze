@@ -1,7 +1,7 @@
 <Solution>
   <Project Path="Domain/Domain.csproj" />
   <Project Path="MiddlewareExample/MiddlewareExample.csproj" />
-  <Project Path="Webapi.Tests/Webapi.Tests.csproj" />
   <Project Path="Persistence/Persistence.csproj" />
+  <Project Path="Presentation.Test/Presentation.Test.csproj" />
   <Project Path="Presentation/Presentation.csproj" />
 </Solution>
