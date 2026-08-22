@@ -10,7 +10,7 @@ COPY Domain/Domain.csproj Domain/
 COPY MiddlewareExample/MiddlewareExample.csproj MiddlewareExample/
 COPY Persistence/Persistence.csproj Persistence/
 COPY Service/Service.csproj Service/
-COPY Presentation.Test/Presentation.Test.csproj Presentation.Test/
+COPY Service.Test/Service.Test.csproj Service.Test/
 
 RUN dotnet restore CodeMaze.slnx
 

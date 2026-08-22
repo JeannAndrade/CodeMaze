@@ -2,6 +2,6 @@
   <Project Path="Domain/Domain.csproj" />
   <Project Path="MiddlewareExample/MiddlewareExample.csproj" />
   <Project Path="Persistence/Persistence.csproj" />
-  <Project Path="Presentation.Test/Presentation.Test.csproj" />
+  <Project Path="Service.Test/Service.Test.csproj" />
   <Project Path="Service/Service.csproj" />
 </Solution>
