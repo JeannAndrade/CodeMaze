@@ -16,6 +16,7 @@ namespace Application.Companies.Queries.GetCompanyList
 
                 return [.. companies.Select(c => new CompanyModel
                 {
+                    Id = c.Id,
                     Name = c.Name,
                     Address = c.Address,
                     Country = c.Country
