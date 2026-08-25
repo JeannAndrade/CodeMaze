@@ -13,6 +13,7 @@ public class CompaniesController(
   [HttpGet]
   public IActionResult GetCompanies()
   {
+    throw new NotImplementedException();
     var companies = _getCompaniesListQuery.Execute();
     return Ok(companies);
   }

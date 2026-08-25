@@ -33,10 +33,8 @@ var app = builder.Build();
 
 // var logger = app.Services.GetRequiredService<ILoggerManager>();
 // app.ConfigureExceptionHandler(logger);
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()) app.UseDeveloperExceptionPage(); else app.UseHsts();
-
+app.UseExceptionHandler(opt => { });
+app.UseHsts();
 //app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.All });
