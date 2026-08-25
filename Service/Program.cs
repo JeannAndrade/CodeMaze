@@ -5,7 +5,7 @@ using Service.Extensions;
 using Persistence.Extensions;
 using LumiaFoundation.AspNetCore.Commons.Extensions;
 using Application.Companies.Queries.GetCompanyList;
-using LumiaFoundation.Logger.Contracts;
+using LumiaFoundation.AspNetCore.ExceptionHandlers;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,11 +26,13 @@ LoggerManager.LoadConfigurationFromFile(
 builder.Services.ConfigureLoggerService();
 builder.Services.ConfigureCors();
 builder.Services.AddControllers();
+builder.Services.AddExceptionHandler<DomainExceptionHandler>();
+builder.Services.AddExceptionHandler<UnhandledExceptionHandler>();
 
 var app = builder.Build();
 
-var logger = app.Services.GetRequiredService<ILoggerManager>();
-app.ConfigureExceptionHandler(logger);
+// var logger = app.Services.GetRequiredService<ILoggerManager>();
+// app.ConfigureExceptionHandler(logger);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) app.UseDeveloperExceptionPage(); else app.UseHsts();
