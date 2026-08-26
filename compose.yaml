@@ -1,9 +1,9 @@
 volumes:
-  codemaze-vol:
+  codemaze-db-data:
 networks:
   codemaze-net:
 services:
-  web-fe:
+  service:
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,7 +12,33 @@ services:
     networks:
       - codemaze-net
     environment:
-      - DBHOST=mysqldb
+      DBHOST: mysqldb
+      DBPORT: 3306
+      CODEMAZE_DB_USER: ${CODEMAZE_DB_USER:-example-user}
+      CODEMAZE_DB_PASS: ${CODEMAZE_DB_PASS:-my_cool_secret}
+      CODEMAZE_DB_NAME: ${CODEMAZE_DB_NAME:-my_database}
+      DBMAJORVERSION: ${DBMAJORVERSION:-9}
+      DBMINORVERSION: ${DBMINORVERSION:-7}
+      DBBUILDVERSION: ${DBBUILDVERSION:-2}
+    depends_on:
+      migrations:
+        condition: service_completed_successfully
+  migrations:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: migrations
+    networks:
+      - codemaze-net
+    environment:
+      DBHOST: mysqldb
+      DBPORT: 3306
+      CODEMAZE_DB_USER: ${CODEMAZE_DB_USER:-example-user}
+      CODEMAZE_DB_PASS: ${CODEMAZE_DB_PASS:-my_cool_secret}
+      CODEMAZE_DB_NAME: ${CODEMAZE_DB_NAME:-my_database}
+      DBMAJORVERSION: ${DBMAJORVERSION:-9}
+      DBMINORVERSION: ${DBMINORVERSION:-7}
+      DBBUILDVERSION: ${DBBUILDVERSION:-2}
     depends_on:
       mysqldb:
         condition: service_healthy
@@ -21,9 +47,15 @@ services:
     networks:
       - codemaze-net
     volumes:
-      - codemaze-vol:/var/lib/mysql
+      - codemaze-db-data:/var/lib/mysql
     environment:
-      - MYSQL_USER=example-user
-      - MYSQL_PASSWORD=my_cool_secret
-      - MYSQL_DATABASE=products
-      - MYSQL_ROOT_PASSWORD=my-secret-pw
+      MYSQL_ROOT_PASSWORD: ${CODEMAZE_DB_ROOT:-my-secret-pw}
+      MYSQL_DATABASE: ${CODEMAZE_DB_NAME:-my_database}
+      MYSQL_USER: ${CODEMAZE_DB_USER:-example-user}
+      MYSQL_PASSWORD: ${CODEMAZE_DB_PASS:-my_cool_secret}
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s

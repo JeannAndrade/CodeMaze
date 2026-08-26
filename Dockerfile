@@ -6,6 +6,7 @@ WORKDIR /source
 COPY global.json .
 COPY CodeMaze.slnx .
 
+COPY Application/Application.csproj Application/
 COPY Domain/Domain.csproj Domain/
 COPY MiddlewareExample/MiddlewareExample.csproj MiddlewareExample/
 COPY Persistence/Persistence.csproj Persistence/
@@ -16,12 +17,18 @@ RUN dotnet restore CodeMaze.slnx
 
 # copy everything else and build app
 COPY . .
+
+FROM build AS migrations
+RUN dotnet tool install --tool-path /tools dotnet-ef --version 10.0.11
+ENTRYPOINT ["/tools/dotnet-ef", "database", "update", "--project", "Persistence/Persistence.csproj", "--startup-project", "Persistence/Persistence.csproj"]
+
+FROM build AS publish
 RUN dotnet publish Service/Service.csproj -c Release -o /app --no-restore
 
 # final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
 ENV ASPNETCORE_URLS=http://+:8080
-COPY --from=build /app ./
+COPY --from=publish /app ./
 EXPOSE 8080
 ENTRYPOINT ["dotnet", "Service.dll"]
