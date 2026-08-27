@@ -6,5 +6,7 @@ namespace Persistence.Employees
 {
     public class EmployeeRepository(WebapiDbContext repositoryContext) : BaseRepository<Employee>(repositoryContext), IEmployeeRepository
     {
+        public IEnumerable<Employee> GetAllEmployees(Guid companyId, bool trackChanges) =>
+        [.. FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges).OrderBy(e => e.Name)];
     }
 }
