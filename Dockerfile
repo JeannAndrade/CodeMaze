@@ -15,13 +15,14 @@ COPY Service.Test/Service.Test.csproj Service.Test/
 
 RUN dotnet restore CodeMaze.slnx
 
-# copy everything else and build app
+# copy everything else
 COPY . .
 
 FROM build AS migrations
 RUN dotnet tool install --tool-path /tools dotnet-ef --version 10.0.11
 ENTRYPOINT ["/tools/dotnet-ef", "database", "update", "--project", "Persistence/Persistence.csproj", "--startup-project", "Persistence/Persistence.csproj"]
 
+# build app
 FROM build AS publish
 RUN dotnet publish Service/Service.csproj -c Release -o /app --no-restore
 
