@@ -1,14 +1,16 @@
 using Domain.Models;
 using LumiaFoundation.EFRepository.Repository;
+using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
 
 namespace Persistence.Employees
 {
     public class EmployeeRepository(WebapiDbContext repositoryContext) : BaseRepository<Employee>(repositoryContext), IEmployeeRepository
     {
-        public IEnumerable<Employee> GetAllEmployees(Guid companyId, bool trackChanges) =>
-        [.. FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges).OrderBy(e => e.Name)];
+        public async Task<IEnumerable<Employee>> GetAllEmployeesAsync(Guid companyId, bool trackChanges) =>
+            await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges).OrderBy(e => e.Name).ToListAsync();
 
-        public Employee? GetEmployee(Guid companyId, Guid id, bool trackChanges) => FindByCondition(e => e.CompanyId.Equals(companyId) && e.Id.Equals(id), trackChanges).SingleOrDefault();
+        public async Task<Employee?> GetEmployeeAsync(Guid companyId, Guid id, bool trackChanges) =>
+            await FindByCondition(e => e.CompanyId.Equals(companyId) && e.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
     }
 }

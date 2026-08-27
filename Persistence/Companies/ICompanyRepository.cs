@@ -4,7 +4,7 @@ namespace Persistence.Companies
 {
     public interface ICompanyRepository
     {
-        IEnumerable<Company> GetAllCompanies(bool trackChanges);
-        Company? GetCompany(Guid companyId, bool trackChanges);
+        Task<IEnumerable<Company>> GetAllCompaniesAsync(bool trackChanges);
+        Task<Company?> GetCompanyAsync(Guid companyId, bool trackChanges);
     }
 }

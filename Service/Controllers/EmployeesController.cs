@@ -14,16 +14,16 @@ namespace Service.Controllers
         private readonly IGetEmployeeQuery _getEmployeeQuery = getEmployeeQuery;
 
         [HttpGet]
-        public IActionResult GetEmployeesForCompany(Guid companyId)
+        public async Task<IActionResult> GetEmployeesForCompany(Guid companyId)
         {
-            var employees = _getEmployeesListQuery.Execute(companyId);
+            var employees = await _getEmployeesListQuery.ExecuteAsync(companyId);
             return Ok(employees);
         }
 
         [HttpGet("{id:guid}")]
-        public IActionResult GetEmployeeForCompany(Guid companyId, Guid id)
+        public async Task<IActionResult> GetEmployeeForCompany(Guid companyId, Guid id)
         {
-            var employee = _getEmployeeQuery.Execute(companyId, id);
+            var employee = await _getEmployeeQuery.ExecuteAsync(companyId, id);
             return Ok(employee);
         }
 

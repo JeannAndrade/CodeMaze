@@ -9,11 +9,11 @@ namespace Application.Companies.Queries.GetCompany
         private readonly IRepositoryManager _repository = repositoryManager;
         private readonly ILoggerManager _logger = logger;
 
-        public CompanyModel Execute(Guid companyId)
+        public async Task<CompanyModel> ExecuteAsync(Guid companyId)
         {
             try
             {
-                var company = _repository.Company.GetCompany(companyId, trackChanges: false) ?? throw new CompanyNotFoundException("Company not found");
+                var company = await _repository.Company.GetCompanyAsync(companyId, trackChanges: false) ?? throw new CompanyNotFoundException("Company not found");
 
                 return new CompanyModel
                 {

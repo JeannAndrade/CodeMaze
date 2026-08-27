@@ -8,11 +8,11 @@ namespace Application.Companies.Queries.GetCompanyList
         private readonly IRepositoryManager _repository = repositoryManager;
         private readonly ILoggerManager _logger = logger;
 
-        public List<CompanyModel> Execute()
+        public async Task<List<CompanyModel>> ExecuteAsync()
         {
             try
             {
-                var companies = _repository.Company.GetAllCompanies(trackChanges: false);
+                var companies = await _repository.Company.GetAllCompaniesAsync(trackChanges: false);
 
                 return [.. companies.Select(c => new CompanyModel
                 {

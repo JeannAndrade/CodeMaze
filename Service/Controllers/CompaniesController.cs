@@ -14,16 +14,16 @@ public class CompaniesController(
   private readonly IGetCompanyQuery _getCompanyQuery = getCompanyQuery;
 
   [HttpGet]
-  public IActionResult GetCompanies()
+  public async Task<IActionResult> GetCompanies()
   {
-    var companies = _getCompaniesListQuery.Execute();
+    var companies = await _getCompaniesListQuery.ExecuteAsync();
     return Ok(companies);
   }
 
   [HttpGet("{id:guid}")]
-  public IActionResult GetCompany(Guid id)
+  public async Task<IActionResult> GetCompany(Guid id)
   {
-    var company = _getCompanyQuery.Execute(id);
+    var company = await _getCompanyQuery.ExecuteAsync(id);
 
     return Ok(company);
   }

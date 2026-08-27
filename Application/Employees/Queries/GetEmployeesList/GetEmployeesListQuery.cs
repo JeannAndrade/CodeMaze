@@ -10,11 +10,11 @@ namespace Application.Employees.Queries.GetEmployeesList
         private readonly IRepositoryManager _repository = repositoryManager;
         private readonly ILoggerManager _logger = logger;
 
-        public List<EmployeeModel> Execute(Guid companyId)
+        public async Task<List<EmployeeModel>> ExecuteAsync(Guid companyId)
         {
             try
             {
-                var employees = _repository.Employee.GetAllEmployees(companyId, trackChanges: false);
+                var employees = await _repository.Employee.GetAllEmployeesAsync(companyId, trackChanges: false);
 
                 return [.. employees.Select(c => new EmployeeModel
                 {
