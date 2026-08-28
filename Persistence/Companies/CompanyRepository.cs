@@ -7,6 +7,8 @@ namespace Persistence.Companies
 {
     public class CompanyRepository(WebapiDbContext repositoryContext) : BaseRepository<Company>(repositoryContext), ICompanyRepository
     {
+        public void CreateCompany(Company company) => Create(company);
+
         public async Task<IEnumerable<Company>> GetAllCompaniesAsync(bool trackChanges) =>
             await FindAll(trackChanges).OrderBy(c => c.Name).ToListAsync();
 
