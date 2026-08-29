@@ -4,7 +4,7 @@ using Application.Companies.Queries.GetCompany;
 using Application.Companies.Queries.GetCompanyList;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Service.Controllers;
+namespace Service.Companies;
 
 [ApiController]
 [Route("api/companies")]
@@ -33,12 +33,12 @@ public class CompaniesController(
   }
 
   [HttpPost]
-  public async Task<IActionResult> CreateCompany([FromBody] CompanyModelForCreation company)
+  public async Task<IActionResult> CreateCompany([FromBody] CompanyForCreationDto company)
   {
     if (company is null)
       throw new CompanyForCreationNullException("CompanyModelForCreation object is null");
 
-    var createdCompany = await _createCompanyCommand.ExecuteAsync(company);
+    var createdCompany = await _createCompanyCommand.ExecuteAsync(company.ToCreateCompanyCommand());
 
     return CreatedAtRoute("CompanyById", new { id = createdCompany.Id }, createdCompany);
   }

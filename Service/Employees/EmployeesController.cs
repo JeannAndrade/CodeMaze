@@ -2,7 +2,7 @@ using Application.Employees.Queries.GetEmployee;
 using Application.Employees.Queries.GetEmployeesList;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Service.Controllers
+namespace Service.Employees
 {
     [Route("api/companies/{companyId}/employees")]
     public class EmployeesController(
