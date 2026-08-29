@@ -1,3 +1,4 @@
+using Application.Employees.Commands.CreateEmployee;
 using Application.Employees.Queries.GetEmployee;
 using Application.Employees.Queries.GetEmployeesList;
 using Microsoft.AspNetCore.Mvc;
@@ -7,11 +8,14 @@ namespace Service.Employees
     [Route("api/companies/{companyId}/employees")]
     public class EmployeesController(
         IGetEmployeesListQuery getEmployeesListQuery,
-        IGetEmployeeQuery getEmployeeQuery) : Controller
+        IGetEmployeeQuery getEmployeeQuery,
+        ICreateEmployeeCommand createEmployeeCommand
+        ) : Controller
     {
 
         private readonly IGetEmployeesListQuery _getEmployeesListQuery = getEmployeesListQuery;
         private readonly IGetEmployeeQuery _getEmployeeQuery = getEmployeeQuery;
+        private readonly ICreateEmployeeCommand _createEmployeeCommand = createEmployeeCommand;
 
         [HttpGet]
         public async Task<IActionResult> GetEmployeesForCompany(Guid companyId)
@@ -26,6 +30,17 @@ namespace Service.Employees
             var employee = await _getEmployeeQuery.ExecuteAsync(companyId, id);
             return Ok(employee);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateEmployeeForCompany(Guid companyId, [FromBody] EmployeeForCreationDto employeeDto)
+        {
+            if (employeeDto is null) return BadRequest("EmployeeForCreationDto object is null");
+
+            var employeeModel = await _createEmployeeCommand.ExecuteAsync(companyId, employeeDto.ToCreateCompanyCommand());
+
+            return CreatedAtRoute("GetEmployeeForCompany", new { companyId, id = employeeModel.Id }, employeeModel);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

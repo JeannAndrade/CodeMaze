@@ -7,6 +7,12 @@ namespace Persistence.Employees
 {
     public class EmployeeRepository(WebapiDbContext repositoryContext) : BaseRepository<Employee>(repositoryContext), IEmployeeRepository
     {
+        public void CreateEmployeeForCompany(Guid companyId, Employee employee)
+        {
+            employee.CompanyId = companyId;
+            Create(employee);
+        }
+
         public async Task<IEnumerable<Employee>> GetAllEmployeesAsync(Guid companyId, bool trackChanges) =>
             await FindByCondition(e => e.CompanyId.Equals(companyId), trackChanges).OrderBy(e => e.Name).ToListAsync();
 

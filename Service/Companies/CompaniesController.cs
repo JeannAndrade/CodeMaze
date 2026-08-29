@@ -36,7 +36,7 @@ public class CompaniesController(
   public async Task<IActionResult> CreateCompany([FromBody] CompanyForCreationDto company)
   {
     if (company is null)
-      throw new CompanyForCreationNullException("CompanyModelForCreation object is null");
+      throw new CompanyForCreationNullException($"{nameof(company)} is null");
 
     var createdCompany = await _createCompanyCommand.ExecuteAsync(company.ToCreateCompanyCommand());
 

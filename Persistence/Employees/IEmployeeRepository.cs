@@ -6,5 +6,6 @@ namespace Persistence.Employees
     {
         Task<IEnumerable<Employee>> GetAllEmployeesAsync(Guid companyId, bool trackChanges);
         Task<Employee?> GetEmployeeAsync(Guid companyId, Guid id, bool trackChanges);
+        void CreateEmployeeForCompany(Guid companyId, Employee employee);
     }
 }
