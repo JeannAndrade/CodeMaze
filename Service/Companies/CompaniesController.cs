@@ -35,9 +35,6 @@ public class CompaniesController(
   [HttpPost]
   public async Task<IActionResult> CreateCompany([FromBody] CompanyForCreationDto company)
   {
-    if (company is null)
-      throw new CompanyForCreationNullException($"{nameof(company)} is null");
-
     var createdCompany = await _createCompanyCommand.ExecuteAsync(company.ToCreateCompanyCommand());
 
     return CreatedAtRoute("CompanyById", new { id = createdCompany.Id }, createdCompany);

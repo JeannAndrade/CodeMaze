@@ -1,4 +1,5 @@
 
+using LumiaFoundation.AspNetCore.Commons.Validators;
 using Persistence.Management;
 
 namespace Application.Companies.Commands.CreateCompany
@@ -9,6 +10,9 @@ namespace Application.Companies.Commands.CreateCompany
 
         public async Task<CompanyModel> ExecuteAsync(CompanyModelForCreation companyModel)
         {
+            // Execute the validator.
+            CommandValidator.Validate(companyModel);
+
             var company = companyModel.ToDomain();
             _repositoryManager.Company.CreateCompany(company);
             await _repositoryManager.SaveAsync();

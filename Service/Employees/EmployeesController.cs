@@ -24,7 +24,7 @@ namespace Service.Employees
             return Ok(employees);
         }
 
-        [HttpGet("{id:guid}")]
+        [HttpGet("{id:guid}", Name = "EmployeeById")]
         public async Task<IActionResult> GetEmployeeForCompany(Guid companyId, Guid id)
         {
             var employee = await _getEmployeeQuery.ExecuteAsync(companyId, id);
@@ -34,13 +34,10 @@ namespace Service.Employees
         [HttpPost]
         public async Task<IActionResult> CreateEmployeeForCompany(Guid companyId, [FromBody] EmployeeForCreationDto employeeDto)
         {
-            if (employeeDto is null) return BadRequest("EmployeeForCreationDto object is null");
+            var createdEmployee = await _createEmployeeCommand.ExecuteAsync(companyId, employeeDto.ToCreateCompanyCommand());
 
-            var employeeModel = await _createEmployeeCommand.ExecuteAsync(companyId, employeeDto.ToCreateCompanyCommand());
-
-            return CreatedAtRoute("GetEmployeeForCompany", new { companyId, id = employeeModel.Id }, employeeModel);
+            return CreatedAtRoute("EmployeeById", new { companyId, id = createdEmployee.Id }, createdEmployee);
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
