@@ -1,5 +1,5 @@
 
-using LumiaFoundation.AspNetCore.Commons.Validators;
+using LumiaFoundation.Core.Validators;
 using Persistence.Management;
 
 namespace Application.Companies.Commands.CreateCompany

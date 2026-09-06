@@ -1,5 +1,5 @@
 
-using Application.Companies.Exceptions;
+using LumiaFoundation.Core.Domain.Exceptions;
 using Persistence.Management;
 
 namespace Application.Employees.Commands.CreateEmployee
@@ -9,7 +9,7 @@ namespace Application.Employees.Commands.CreateEmployee
         private readonly IRepositoryManager _repositoryManager = repositoryManager;
         public async Task<EmployeeModel> ExecuteAsync(Guid companyId, EmployeeModelForCreation employeeModel)
         {
-            var company = await _repositoryManager.Company.GetCompanyAsync(companyId, false) ?? throw new CompanyNotFoundException("Company not found");
+            _ = await _repositoryManager.Company.GetCompanyAsync(companyId, false) ?? throw new EntityNotFoundException("Company not found");
 
             var employee = employeeModel.ToDomain();
             _repositoryManager.Employee.CreateEmployeeForCompany(companyId, employee);

@@ -1,6 +1,7 @@
 using Application.Employees.Commands.CreateEmployee;
 using Application.Employees.Queries.GetEmployee;
 using Application.Employees.Queries.GetEmployeesList;
+using LumiaFoundation.AspNetCore.Commons.BaseControllers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Service.Employees
@@ -10,7 +11,7 @@ namespace Service.Employees
         IGetEmployeesListQuery getEmployeesListQuery,
         IGetEmployeeQuery getEmployeeQuery,
         ICreateEmployeeCommand createEmployeeCommand
-        ) : Controller
+        ) : BaseApiController
     {
 
         private readonly IGetEmployeesListQuery _getEmployeesListQuery = getEmployeesListQuery;
@@ -37,12 +38,6 @@ namespace Service.Employees
             var createdEmployee = await _createEmployeeCommand.ExecuteAsync(companyId, employeeDto.ToCreateCompanyCommand());
 
             return CreatedAtRoute("EmployeeById", new { companyId, id = createdEmployee.Id }, createdEmployee);
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View("Error!");
         }
     }
 }
