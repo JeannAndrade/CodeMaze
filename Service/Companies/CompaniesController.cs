@@ -41,7 +41,7 @@ public class CompaniesController(
   }
 
   [HttpPost]
-  [ProducesResponseType(typeof(CompanyModel), StatusCodes.Status200OK)]
+  [ProducesResponseType(typeof(CompanyModel), StatusCodes.Status201Created)]
   [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status404NotFound)]
   [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status500InternalServerError)]
   [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status422UnprocessableEntity)]

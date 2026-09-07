@@ -7,8 +7,6 @@ using LumiaFoundation.AspNetCore.Commons.Extensions;
 using Application.Companies.Queries.GetCompanyList;
 using LumiaFoundation.AspNetCore.ExceptionHandlers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi;
-using Scalar.AspNetCore;              // ← novo
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +27,7 @@ builder.Services.ConfigureCors();
 builder.Services.AddControllers();
 builder.Services.ConfigureOpenApi("CompanyEmployees API", "v1");
 builder.Services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
+builder.Services.AddDomainExceptionMappingFilter();
 builder.Services.AddExceptionHandler<DomainExceptionHandler>();
 builder.Services.AddExceptionHandler<UnhandledExceptionHandler>();
 
