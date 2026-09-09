@@ -5,7 +5,7 @@ using Persistence.Employees;
 
 namespace Persistence.Management
 {
-    public class RepositoryManager(WebapiDbContext repositoryContext) : BaseRepositoryManager(repositoryContext), IRepositoryManager
+    public class RepositoryManager(CodeMazeDbContext repositoryContext) : BaseRepositoryManager(repositoryContext), IRepositoryManager
     {
         private readonly Lazy<ICompanyRepository> _companyRepository = new(() => new CompanyRepository(repositoryContext));
         private readonly Lazy<IEmployeeRepository> _employeeRepository = new(() => new EmployeeRepository(repositoryContext));

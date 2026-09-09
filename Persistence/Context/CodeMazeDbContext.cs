@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Context
 {
-  public class WebapiDbContext(DbContextOptions options) : RepositoryContext(options)
+  public class CodeMazeDbContext(DbContextOptions options) : RepositoryContext(options)
   {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-      modelBuilder.ApplyConfigurationsFromAssembly(typeof(WebapiDbContext).Assembly);
+      modelBuilder.ApplyConfigurationsFromAssembly(typeof(CodeMazeDbContext).Assembly);
 
       base.OnModelCreating(modelBuilder);
     }

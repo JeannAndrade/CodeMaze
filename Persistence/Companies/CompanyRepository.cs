@@ -5,7 +5,7 @@ using Persistence.Context;
 
 namespace Persistence.Companies
 {
-    public class CompanyRepository(WebapiDbContext repositoryContext) : BaseRepository<Company>(repositoryContext), ICompanyRepository
+    public class CompanyRepository(CodeMazeDbContext repositoryContext) : BaseRepository<Company>(repositoryContext), ICompanyRepository
     {
         public void CreateCompany(Company company) => Create(company);
 

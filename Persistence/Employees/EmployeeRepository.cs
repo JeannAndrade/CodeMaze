@@ -5,7 +5,7 @@ using Persistence.Context;
 
 namespace Persistence.Employees
 {
-    public class EmployeeRepository(WebapiDbContext repositoryContext) : BaseRepository<Employee>(repositoryContext), IEmployeeRepository
+    public class EmployeeRepository(CodeMazeDbContext repositoryContext) : BaseRepository<Employee>(repositoryContext), IEmployeeRepository
     {
         public void CreateEmployeeForCompany(Guid companyId, Employee employee)
         {

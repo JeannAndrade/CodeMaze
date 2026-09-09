@@ -9,7 +9,7 @@ using Persistence.Context;
 
 namespace Persistence.Migrations
 {
-    [DbContext(typeof(WebapiDbContext))]
+    [DbContext(typeof(CodeMazeDbContext))]
     partial class WebapiDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

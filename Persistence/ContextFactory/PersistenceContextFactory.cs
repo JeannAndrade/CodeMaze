@@ -6,9 +6,9 @@ using Persistence.Extensions;
 
 namespace Persistence.ContextFactory
 {
-    public class PersistenceContextFactory : IDesignTimeDbContextFactory<WebapiDbContext>
+    public class PersistenceContextFactory : IDesignTimeDbContextFactory<CodeMazeDbContext>
     {
-        public WebapiDbContext CreateDbContext(string[] args)
+        public CodeMazeDbContext CreateDbContext(string[] args)
         {
             var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
@@ -19,7 +19,7 @@ namespace Persistence.ContextFactory
 
             services.ConfigureDatabase(configuration);
 
-            return services.BuildServiceProvider().GetRequiredService<WebapiDbContext>();
+            return services.BuildServiceProvider().GetRequiredService<CodeMazeDbContext>();
         }
     }
 }

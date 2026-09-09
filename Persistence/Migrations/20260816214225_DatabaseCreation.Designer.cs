@@ -10,7 +10,7 @@ using Persistence.Context;
 
 namespace Persistence.Migrations
 {
-    [DbContext(typeof(WebapiDbContext))]
+    [DbContext(typeof(CodeMazeDbContext))]
     [Migration("20260816214225_DatabaseCreation")]
     partial class DatabaseCreation
     {

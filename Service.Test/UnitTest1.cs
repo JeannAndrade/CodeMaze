@@ -1,10 +1,11 @@
-﻿namespace Service.Test;
-
-public class UnitTest1
+﻿namespace Service.Test
 {
-    [Fact]
-    public void Test1()
+    public class UnitTest1
     {
+        [Fact]
+        public void Test1()
+        {
 
+        }
     }
 }

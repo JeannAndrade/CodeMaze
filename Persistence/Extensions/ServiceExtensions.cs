@@ -26,7 +26,7 @@ namespace Persistence.Extensions
 
             var dbConnectionHelper = new DbConnectionHelper(host: host, port: port, user: user, password: password, database: database, majorVersion: majorVersion, minorVersion: minorVersion, buildVersion: buildVersion);
 
-            services.ConfigureMySqlDbDatabase<WebapiDbContext>(dbConnectionHelper, "Persistence");
+            services.ConfigureMySqlDbDatabase<CodeMazeDbContext>(dbConnectionHelper, "Persistence");
 
             return services;
         }
