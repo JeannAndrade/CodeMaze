@@ -2,6 +2,7 @@ using Application.Employees.Commands.CreateEmployee;
 using Application.Employees.Queries.GetEmployee;
 using Application.Employees.Queries.GetEmployeesList;
 using LumiaFoundation.AspNetCore.Commons.BaseControllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Service.Employees
@@ -19,6 +20,7 @@ namespace Service.Employees
         private readonly ICreateEmployeeCommand _createEmployeeCommand = createEmployeeCommand;
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetEmployeesForCompany(Guid companyId)
         {
             var employees = await _getEmployeesListQuery.ExecuteAsync(companyId);
@@ -26,6 +28,7 @@ namespace Service.Employees
         }
 
         [HttpGet("{id:guid}", Name = "EmployeeById")]
+        [Authorize]
         public async Task<IActionResult> GetEmployeeForCompany(Guid companyId, Guid id)
         {
             var employee = await _getEmployeeQuery.ExecuteAsync(companyId, id);
@@ -33,6 +36,7 @@ namespace Service.Employees
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateEmployeeForCompany(Guid companyId, [FromBody] EmployeeForCreationDto employeeDto)
         {
             var createdEmployee = await _createEmployeeCommand.ExecuteAsync(companyId, employeeDto.ToCreateCompanyCommand());

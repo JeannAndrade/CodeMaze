@@ -29,5 +29,15 @@ namespace Service.Auth
 
             return StatusCode(StatusCodes.Status201Created);
         }
+
+        [HttpPost("login")]
+        [ServiceFilter(typeof(DtoNotEmptyValidationAttribute))]
+        public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto user)
+        {
+            if (!await _service.AuthenticationService.ValidateUser(user))
+                return Unauthorized();
+
+            return Ok(new { Token = await _service.AuthenticationService.CreateToken(true) });
+        }
     }
 }

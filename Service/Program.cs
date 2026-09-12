@@ -9,6 +9,7 @@ using LumiaFoundation.AspNetCore.ExceptionHandlers;
 using Microsoft.AspNetCore.Mvc;
 using LumiaFoundation.Auth.Extensions;
 using LumiaFoundation.AspNetCore.Extensions;
+using LumiaFoundation.Auth.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,12 +18,16 @@ IConfiguration configuration = new ConfigurationBuilder()
     .AddEnvironmentVariables()
     .Build();
 
+var appConfigurationParameter = new AppConfigurationParameter(configuration);
+
 builder.Services.ConfigureDatabase(configuration);
 builder.Services.ConfigureIdentityDatabase(configuration);
 builder.Services.AddValidationFilters();
 builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();
-builder.Services.ConfigureIdentityServiceManager(configuration);
+builder.Services.ConfigureIdentityServiceManager();
+builder.Services.ConfigureAppSettingsReader(appConfigurationParameter);
+builder.Services.ConfigureJWT(appConfigurationParameter);
 builder.Services.ConfigureRepositoryManager();
 builder.Services.AddServicesFromAssembly(typeof(GetCompaniesListQuery).Assembly);
 

@@ -3,6 +3,7 @@ using Application.Companies.Queries.GetCompany;
 using Application.Companies.Queries.GetCompanyList;
 using LumiaFoundation.Abstractions.ErrorModel;
 using LumiaFoundation.AspNetCore.Commons.BaseControllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Service.Companies
@@ -19,6 +20,7 @@ namespace Service.Companies
     private readonly ICreateCompanyCommand _createCompanyCommand = createCompanyCommand;
 
     [HttpGet]
+    [Authorize]
     [ProducesResponseType(typeof(IEnumerable<CompanyDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status500InternalServerError)]
@@ -29,6 +31,7 @@ namespace Service.Companies
     }
 
     [HttpGet("{id:guid}", Name = "CompanyById")]
+    [Authorize]
     [ProducesResponseType(typeof(CompanyDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status500InternalServerError)]
@@ -40,6 +43,7 @@ namespace Service.Companies
     }
 
     [HttpPost]
+    [Authorize]
     [ProducesResponseType(typeof(CompanyDto), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status500InternalServerError)]
