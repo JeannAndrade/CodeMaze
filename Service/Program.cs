@@ -7,6 +7,8 @@ using LumiaFoundation.AspNetCore.Commons.Extensions;
 using Application.Companies.Queries.GetCompanyList;
 using LumiaFoundation.AspNetCore.ExceptionHandlers;
 using Microsoft.AspNetCore.Mvc;
+using LumiaFoundation.Auth.Extensions;
+using LumiaFoundation.AspNetCore.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,11 @@ IConfiguration configuration = new ConfigurationBuilder()
     .Build();
 
 builder.Services.ConfigureDatabase(configuration);
+builder.Services.ConfigureIdentityDatabase(configuration);
+builder.Services.AddValidationFilters();
+builder.Services.AddAuthentication();
+builder.Services.ConfigureIdentity();
+builder.Services.ConfigureIdentityServiceManager(configuration);
 builder.Services.ConfigureRepositoryManager();
 builder.Services.AddServicesFromAssembly(typeof(GetCompaniesListQuery).Assembly);
 
@@ -52,6 +59,7 @@ app.UseHsts();
 app.UseStaticFiles();
 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.All });
 app.UseCors("CorsPolicy");
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapOpenApiDevTools();
 app.MapControllers();
