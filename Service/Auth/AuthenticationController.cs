@@ -37,7 +37,7 @@ namespace Service.Auth
             if (!await _service.AuthenticationService.ValidateUser(user))
                 return Unauthorized();
 
-            return Ok(new { Token = await _service.AuthenticationService.CreateToken(true) });
+            return Ok(new { Token = await _service.AuthenticationService.CreateToken(populateExp: true) });
         }
     }
 }

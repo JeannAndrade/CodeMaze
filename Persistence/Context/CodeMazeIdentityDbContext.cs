@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Persistence.Context
 {
 
-    public class CodeMazeIdentityDbContext(DbContextOptions options) : IdentityContext(options)
+    public class CodeMazeIdentityDbContext(DbContextOptions<CodeMazeIdentityDbContext> options) : IdentityContext(options)
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

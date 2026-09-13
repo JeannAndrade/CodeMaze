@@ -20,7 +20,7 @@ namespace Service.Companies
     private readonly ICreateCompanyCommand _createCompanyCommand = createCompanyCommand;
 
     [HttpGet]
-    [Authorize]
+    [Authorize(Roles = "Manager")]
     [ProducesResponseType(typeof(IEnumerable<CompanyDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status500InternalServerError)]
