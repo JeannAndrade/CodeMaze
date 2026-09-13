@@ -18,31 +18,45 @@ IConfiguration configuration = new ConfigurationBuilder()
     .AddEnvironmentVariables()
     .Build();
 
-var appConfigurationParameter = new AppConfigurationParameter(configuration);
-
+# region Configure Domain Database
 builder.Services.ConfigureDatabase(configuration);
-builder.Services.ConfigureIdentityDatabase(configuration);
+builder.Services.ConfigureRepositoryManager();
+#endregion
+
 builder.Services.AddValidationFilters();
+
+#region Authentication and Authorization
+builder.Services.ConfigureIdentityDatabase(configuration);
 builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();
 builder.Services.ConfigureIdentityServiceManager();
+var appConfigurationParameter = new AppConfigurationParameter(configuration);
 builder.Services.ConfigureAppSettingsReader(appConfigurationParameter);
 builder.Services.ConfigureJWT(appConfigurationParameter);
-builder.Services.ConfigureRepositoryManager();
-builder.Services.AddServicesFromAssembly(typeof(GetCompaniesListQuery).Assembly);
+#endregion
 
+#region Serviços da camada de aplicação
+builder.Services.AddServicesFromAssembly(typeof(GetCompaniesListQuery).Assembly);
+#endregion
+
+#region Configurando logs
 LoggerManager.LoadConfigurationFromFile(
     Path.Combine(builder.Environment.ContentRootPath, "nlog.config"));
-
 builder.Services.ConfigureLoggerService();
+#endregion
+
 builder.Services.ConfigureCors();
 builder.Services.AddControllers();
-builder.Services.ConfigureOpenApi("CompanyEmployees API", "v1");
+
+#region Configurando comportamento tratamento de exceções
 builder.Services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
 builder.Services.AddDomainExceptionMappingFilter();
 builder.Services.AddExceptionHandler<DomainExceptionHandler>();
 builder.Services.AddExceptionHandler<UnhandledExceptionHandler>();
+#endregion
 
+#region Configurando OpenAPI
+builder.Services.ConfigureOpenApi("CompanyEmployees API", "v1");
 builder.Services.AddOpenApi(options =>
 {
     options.AddDocumentTransformer((document, context, cancellationToken) =>
@@ -55,6 +69,7 @@ builder.Services.AddOpenApi(options =>
         return Task.CompletedTask;
     });
 });
+#endregion
 
 var app = builder.Build();
 
@@ -64,8 +79,10 @@ app.UseHsts();
 app.UseStaticFiles();
 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.All });
 app.UseCors("CorsPolicy");
+// Authentication and Authorization
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapOpenApiDevTools();
 app.MapControllers();
 
