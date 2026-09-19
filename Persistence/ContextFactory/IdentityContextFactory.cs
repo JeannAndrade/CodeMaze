@@ -4,22 +4,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Persistence.Context;
 using Persistence.Extensions;
 
-namespace Persistence.ContextFactory
+namespace Persistence.ContextFactory;
+
+public class IdentityContextFactory : IDesignTimeDbContextFactory<CodeMazeIdentityDbContext>
 {
-    public class IdentityContextFactory : IDesignTimeDbContextFactory<CodeMazeIdentityDbContext>
+    public CodeMazeIdentityDbContext CreateDbContext(string[] args)
     {
-        public CodeMazeIdentityDbContext CreateDbContext(string[] args)
-        {
-            var configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddEnvironmentVariables()
-            .Build();
+        var configuration = new ConfigurationBuilder()
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddEnvironmentVariables()
+        .Build();
 
-            var services = new ServiceCollection();
+        var services = new ServiceCollection();
 
-            services.ConfigureIdentityDatabase(configuration);
+        services.ConfigureIdentityDatabase(configuration);
 
-            return services.BuildServiceProvider().GetRequiredService<CodeMazeIdentityDbContext>();
-        }
+        return services.BuildServiceProvider().GetRequiredService<CodeMazeIdentityDbContext>();
     }
 }

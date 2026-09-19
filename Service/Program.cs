@@ -26,13 +26,13 @@ builder.Services.ConfigureRepositoryManager();
 builder.Services.AddValidationFilters();
 
 #region Authentication and Authorization
-builder.Services.ConfigureIdentityDatabase(configuration);
-builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();
+builder.Services.ConfigureIdentityDatabase(configuration);
 builder.Services.ConfigureIdentityServiceManager();
 var appConfigurationParameter = new AppConfigurationParameter(configuration);
 builder.Services.ConfigureAppSettingsReader(appConfigurationParameter);
 builder.Services.ConfigureJWT(appConfigurationParameter);
+builder.Services.AddAuthentication();
 #endregion
 
 #region Serviços da camada de aplicação

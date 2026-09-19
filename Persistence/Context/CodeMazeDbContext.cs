@@ -2,18 +2,17 @@
 using LumiaFoundation.EFRepository.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Persistence.Context
+namespace Persistence.Context;
+
+public class CodeMazeDbContext(DbContextOptions<CodeMazeDbContext> options) : RepositoryContext(options)
 {
-  public class CodeMazeDbContext(DbContextOptions<CodeMazeDbContext> options) : RepositoryContext(options)
-  {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-      modelBuilder.ApplyConfigurationsFromAssembly(typeof(CodeMazeDbContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(CodeMazeDbContext).Assembly);
 
-      base.OnModelCreating(modelBuilder);
+        base.OnModelCreating(modelBuilder);
     }
 
     public DbSet<Company> Companies => Set<Company>();
     public DbSet<Employee> Employees => Set<Employee>();
-  }
 }

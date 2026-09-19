@@ -2,52 +2,51 @@ using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Persistence.Mappings
+namespace Persistence.Mappings;
+
+public class EmployeeMapping : IEntityTypeConfiguration<Employee>
 {
-    public class EmployeeMapping : IEntityTypeConfiguration<Employee>
+
+    public void Configure(EntityTypeBuilder<Employee> builder)
     {
+        builder.ToTable("Employees");
+        builder.HasKey(k => k.Id);
+        builder.Property(e => e.Id).HasColumnName("EmployeeId");
+        builder.Property(e => e.Name).HasMaxLength(30).IsRequired();
+        builder.Property(e => e.Age).IsRequired();
+        builder.Property(e => e.Position).HasMaxLength(20).IsRequired();
+        builder.Property(e => e.CompanyId).HasColumnName("CompanyId");
 
-        public void Configure(EntityTypeBuilder<Employee> builder)
-        {
-            builder.ToTable("Employees");
-            builder.HasKey(k => k.Id);
-            builder.Property(e => e.Id).HasColumnName("EmployeeId");
-            builder.Property(e => e.Name).HasMaxLength(30).IsRequired();
-            builder.Property(e => e.Age).IsRequired();
-            builder.Property(e => e.Position).HasMaxLength(20).IsRequired();
-            builder.Property(e => e.CompanyId).HasColumnName("CompanyId");
+        builder
+            .HasOne(e => e.Company)
+            .WithMany(c => c.Employees)
+            .HasForeignKey(e => e.CompanyId)
+            .OnDelete(DeleteBehavior.Cascade);
 
-            builder
-                .HasOne(e => e.Company)
-                .WithMany(c => c.Employees)
-                .HasForeignKey(e => e.CompanyId)
-                .OnDelete(DeleteBehavior.Cascade);
+        var companies = CompanyMapping.GetCompanies();
 
-            var companies = CompanyMapping.GetCompanies();
-
-            builder.HasData(
-                new Employee
-                {
-                    Name = "Sam Raiden",
-                    Age = 26,
-                    Position = "Software developer",
-                    CompanyId = companies.First(c => c.Name == "IT_Solutions Ltd").Id
-                },
-                new Employee
-                {
-                    Name = "Jana McLeaf",
-                    Age = 30,
-                    Position = "Software developer",
-                    CompanyId = companies.First(c => c.Name == "IT_Solutions Ltd").Id
-                },
-                new Employee
-                {
-                    Name = "Kane Miller",
-                    Age = 35,
-                    Position = "Administrator",
-                    CompanyId = companies.First(c => c.Name == "Admin_Solutions Ltd").Id
-                }
-            );
-        }
+        builder.HasData(
+            new Employee
+            {
+                Name = "Sam Raiden",
+                Age = 26,
+                Position = "Software developer",
+                CompanyId = companies.First(c => c.Name == "IT_Solutions Ltd").Id
+            },
+            new Employee
+            {
+                Name = "Jana McLeaf",
+                Age = 30,
+                Position = "Software developer",
+                CompanyId = companies.First(c => c.Name == "IT_Solutions Ltd").Id
+            },
+            new Employee
+            {
+                Name = "Kane Miller",
+                Age = 35,
+                Position = "Administrator",
+                CompanyId = companies.First(c => c.Name == "Admin_Solutions Ltd").Id
+            }
+        );
     }
 }

@@ -6,53 +6,52 @@ using LumiaFoundation.AspNetCore.Commons.BaseControllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Service.Companies
+namespace Service.Companies;
+
+[ApiController]
+[Route("api/companies")]
+public class CompaniesController(
+IGetCompaniesListQuery getCompaniesListQuery,
+IGetCompanyQuery getCompanyQuery,
+ICreateCompanyCommand createCompanyCommand) : BaseApiController
 {
-  [ApiController]
-  [Route("api/companies")]
-  public class CompaniesController(
-    IGetCompaniesListQuery getCompaniesListQuery,
-    IGetCompanyQuery getCompanyQuery,
-    ICreateCompanyCommand createCompanyCommand) : BaseApiController
+  private readonly IGetCompaniesListQuery _getCompaniesListQuery = getCompaniesListQuery;
+  private readonly IGetCompanyQuery _getCompanyQuery = getCompanyQuery;
+  private readonly ICreateCompanyCommand _createCompanyCommand = createCompanyCommand;
+
+  [HttpGet]
+  [Authorize(Roles = "Manager")]
+  [ProducesResponseType(typeof(IEnumerable<CompanyDto>), StatusCodes.Status200OK)]
+  [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status404NotFound)]
+  [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status500InternalServerError)]
+  public async Task<ActionResult<IEnumerable<CompanyDto>>> GetCompanies()
   {
-    private readonly IGetCompaniesListQuery _getCompaniesListQuery = getCompaniesListQuery;
-    private readonly IGetCompanyQuery _getCompanyQuery = getCompanyQuery;
-    private readonly ICreateCompanyCommand _createCompanyCommand = createCompanyCommand;
+    var companies = await _getCompaniesListQuery.ExecuteAsync();
+    return Ok(CompanyDto.FromApplication(companies));
+  }
 
-    [HttpGet]
-    [Authorize(Roles = "Manager")]
-    [ProducesResponseType(typeof(IEnumerable<CompanyDto>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<IEnumerable<CompanyDto>>> GetCompanies()
-    {
-      var companies = await _getCompaniesListQuery.ExecuteAsync();
-      return Ok(CompanyDto.FromApplication(companies));
-    }
+  [HttpGet("{id:guid}", Name = "CompanyById")]
+  [Authorize]
+  [ProducesResponseType(typeof(CompanyDto), StatusCodes.Status200OK)]
+  [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status404NotFound)]
+  [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status500InternalServerError)]
+  public async Task<ActionResult<CompanyDto>> GetCompany(Guid id)
+  {
+    var company = await _getCompanyQuery.ExecuteAsync(id);
 
-    [HttpGet("{id:guid}", Name = "CompanyById")]
-    [Authorize]
-    [ProducesResponseType(typeof(CompanyDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<CompanyDto>> GetCompany(Guid id)
-    {
-      var company = await _getCompanyQuery.ExecuteAsync(id);
+    return Ok(CompanyDto.FromApplication(company));
+  }
 
-      return Ok(CompanyDto.FromApplication(company));
-    }
+  [HttpPost]
+  [Authorize]
+  [ProducesResponseType(typeof(CompanyDto), StatusCodes.Status201Created)]
+  [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status404NotFound)]
+  [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status500InternalServerError)]
+  [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status422UnprocessableEntity)]
+  public async Task<ActionResult<CompanyDto>> CreateCompany([FromBody] CompanyForCreationDto company)
+  {
+    var createdCompany = await _createCompanyCommand.ExecuteAsync(company.ToCreateCompanyCommand());
 
-    [HttpPost]
-    [Authorize]
-    [ProducesResponseType(typeof(CompanyDto), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status500InternalServerError)]
-    [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status422UnprocessableEntity)]
-    public async Task<ActionResult<CompanyDto>> CreateCompany([FromBody] CompanyForCreationDto company)
-    {
-      var createdCompany = await _createCompanyCommand.ExecuteAsync(company.ToCreateCompanyCommand());
-
-      return CreatedAtRoute("CompanyById", new { id = createdCompany.Id }, CompanyDto.FromApplication(createdCompany));
-    }
+    return CreatedAtRoute("CompanyById", new { id = createdCompany.Id }, CompanyDto.FromApplication(createdCompany));
   }
 }

@@ -1,8 +1,7 @@
 
-namespace Application.Companies.Commands.CreateCompany
+namespace Application.Companies.Commands.CreateCompany;
+
+public interface ICreateCompanyCommand
 {
-    public interface ICreateCompanyCommand
-    {
-        Task<CompanyModel> ExecuteAsync(CompanyModelForCreation companyModel);
-    }
+    Task<CompanyModel> ExecuteAsync(CompanyModelForCreation companyModel);
 }

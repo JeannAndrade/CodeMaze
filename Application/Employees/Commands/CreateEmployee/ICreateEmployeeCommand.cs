@@ -1,8 +1,7 @@
 
-namespace Application.Employees.Commands.CreateEmployee
+namespace Application.Employees.Commands.CreateEmployee;
+
+public interface ICreateEmployeeCommand
 {
-    public interface ICreateEmployeeCommand
-    {
-        Task<EmployeeModel> ExecuteAsync(Guid companyId, EmployeeModelForCreation employeeModel);
-    }
+    Task<EmployeeModel> ExecuteAsync(Guid companyId, EmployeeModelForCreation employeeModel);
 }

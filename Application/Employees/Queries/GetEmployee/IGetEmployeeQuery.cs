@@ -1,7 +1,6 @@
-namespace Application.Employees.Queries.GetEmployee
+namespace Application.Employees.Queries.GetEmployee;
+
+public interface IGetEmployeeQuery
 {
-    public interface IGetEmployeeQuery
-    {
-        Task<EmployeeModel> ExecuteAsync(Guid companyId, Guid id);
-    }
+    Task<EmployeeModel> ExecuteAsync(Guid companyId, Guid id);
 }

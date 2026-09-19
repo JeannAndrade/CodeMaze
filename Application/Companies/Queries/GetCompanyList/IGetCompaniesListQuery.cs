@@ -1,8 +1,7 @@
 
-namespace Application.Companies.Queries.GetCompanyList
+namespace Application.Companies.Queries.GetCompanyList;
+
+public interface IGetCompaniesListQuery
 {
-    public interface IGetCompaniesListQuery
-    {
-        Task<List<CompanyModel>> ExecuteAsync();
-    }
+    Task<List<CompanyModel>> ExecuteAsync();
 }

@@ -1,15 +1,14 @@
 
 using Domain.Models;
 
-namespace Application.Employees.Commands.CreateEmployee
+namespace Application.Employees.Commands.CreateEmployee;
+
+public record EmployeeModelForCreation(string Name, int Age, string Position)
 {
-    public record EmployeeModelForCreation(string Name, int Age, string Position)
+    public Employee ToDomain() => new()
     {
-        public Employee ToDomain() => new()
-        {
-            Name = Name,
-            Age = Age,
-            Position = Position
-        };
-    }
+        Name = Name,
+        Age = Age,
+        Position = Position
+    };
 }

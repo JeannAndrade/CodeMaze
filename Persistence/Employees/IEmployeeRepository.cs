@@ -1,11 +1,10 @@
 using Domain.Models;
 
-namespace Persistence.Employees
+namespace Persistence.Employees;
+
+public interface IEmployeeRepository
 {
-    public interface IEmployeeRepository
-    {
-        Task<IEnumerable<Employee>> GetAllEmployeesAsync(Guid companyId, bool trackChanges);
-        Task<Employee?> GetEmployeeAsync(Guid companyId, Guid id, bool trackChanges);
-        void CreateEmployeeForCompany(Guid companyId, Employee employee);
-    }
+    Task<IEnumerable<Employee>> GetAllEmployeesAsync(Guid companyId, bool trackChanges);
+    Task<Employee?> GetEmployeeAsync(Guid companyId, Guid id, bool trackChanges);
+    void CreateEmployeeForCompany(Guid companyId, Employee employee);
 }

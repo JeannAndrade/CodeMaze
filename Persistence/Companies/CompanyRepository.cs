@@ -3,16 +3,15 @@ using LumiaFoundation.EFRepository.Repository;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
 
-namespace Persistence.Companies
+namespace Persistence.Companies;
+
+public class CompanyRepository(CodeMazeDbContext repositoryContext) : BaseRepository<Company>(repositoryContext), ICompanyRepository
 {
-    public class CompanyRepository(CodeMazeDbContext repositoryContext) : BaseRepository<Company>(repositoryContext), ICompanyRepository
-    {
-        public void CreateCompany(Company company) => Create(company);
+    public void CreateCompany(Company company) => Create(company);
 
-        public async Task<IEnumerable<Company>> GetAllCompaniesAsync(bool trackChanges) =>
-            await FindAll(trackChanges).OrderBy(c => c.Name).ToListAsync();
+    public async Task<IEnumerable<Company>> GetAllCompaniesAsync(bool trackChanges) =>
+        await FindAll(trackChanges).OrderBy(c => c.Name).ToListAsync();
 
-        public async Task<Company?> GetCompanyAsync(Guid companyId, bool trackChanges) =>
-            await FindByCondition(c => c.Id == companyId, trackChanges).SingleOrDefaultAsync();
-    }
+    public async Task<Company?> GetCompanyAsync(Guid companyId, bool trackChanges) =>
+        await FindByCondition(c => c.Id == companyId, trackChanges).SingleOrDefaultAsync();
 }
