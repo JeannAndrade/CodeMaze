@@ -1,5 +1,4 @@
 using LumiaFoundation.Core.Domain.Exceptions;
-using LumiaFoundation.Logger.Contracts;
 using Persistence.Management;
 
 namespace Application.Companies.Queries.GetCompany;

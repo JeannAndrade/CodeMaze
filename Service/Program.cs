@@ -8,7 +8,6 @@ using Application.Companies.Queries.GetCompanyList;
 using LumiaFoundation.AspNetCore.ExceptionHandlers;
 using Microsoft.AspNetCore.Mvc;
 using LumiaFoundation.Auth.Extensions;
-using LumiaFoundation.AspNetCore.Extensions;
 using LumiaFoundation.Auth.Config;
 
 var builder = WebApplication.CreateBuilder(args);
